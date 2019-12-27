@@ -11,10 +11,10 @@ const SignupScreen = ({navigation}) => {
 
 	return <View>
 		<AuthForm 
-			headerText="Log into Tik Tak"
+			headerText="Sign up for Tik Tak"
 			errorMessage={state.errorMessage}
 			onSubmit={signup}
-			submitButtonText="Log in"
+			submitButtonText="Sign up"
 		/>
 		<NavLink 
 			navigateTo="Signin" 
