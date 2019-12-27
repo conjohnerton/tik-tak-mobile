@@ -4,10 +4,17 @@ import { StyleSheet } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "./Spacer";
 
-const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+const AuthForm = ({
+  headerText,
+  errorMessage,
+  verifyPassword,
+  onSubmit,
+  submitButtonText
+}) => {
   // TODO: Verify that username and password are entered before submission
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [verifiedPassword, setVerifiedPassword] = useState("");
 
   return (
     <>
@@ -33,6 +40,20 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
         autoCapitalize="none"
         autoCorrect={false}
       />
+
+      {verifyPassword ? (
+        <>
+          <Spacer />
+          <Input
+            secureTextEntry
+            label="Password"
+            value={verifiedPassword}
+            onChangeText={setVerifiedPassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </>
+      ) : null}
 
       {errorMessage ? (
         <Text style={styles.errorMessage}>{errorMessage}</Text>
