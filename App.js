@@ -6,12 +6,14 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { setNavigator } from "./src/navigationRef";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import LoadingScreen from "./src/screens/LoadingScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import PostListScreen from "./src/screens/PostListScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 
 const switchNavigator = createSwitchNavigator({
+  Loading: LoadingScreen,
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen

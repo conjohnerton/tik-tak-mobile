@@ -74,12 +74,25 @@ const signout = (dispatch) => async () => {
   }
 };
 
+// Signs user in if token is in local storage
+const tryLocalSignin = (dispatch) => async () => {
+  const token = await AsyncStorage.getItem("token");
+
+  if (!token) {
+    navigate("Signup");
+    return;
+  }
+
+  dispatch({ type: "authenticate_user", payload: token });
+  navigate("PostList");
+};
+
 const clearError = (dispatch) => () => {
   dispatch({ type: "clear_error" });
 };
 
 export const { Context, Provider } = createDataContext(
   authReducer,
-  { signup, signin, signout, clearError },
+  { signup, signin, signout, clearError, tryLocalSignin },
   { token: null, errorMessage: "" }
 );
