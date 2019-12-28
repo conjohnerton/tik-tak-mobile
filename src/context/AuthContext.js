@@ -84,7 +84,7 @@ const tryLocalSignin = (dispatch) => async () => {
   }
 
   dispatch({ type: "authenticate_user", payload: token });
-  navigate("PostList");
+  navigate("Posts");
 };
 
 const clearError = (dispatch) => () => {

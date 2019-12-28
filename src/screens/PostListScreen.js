@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
-import { requestPermissionsAsync } from "expo-location";
+// import { requestPermissionsAsync } from "expo-location";
 
 const PostListScreen = () => {
   const [err, setErr] = useState(null);
 
   const askForLocation = async () => {
     try {
-      await requestPermissionsAsync();
+      // await requestPermissionsAsync();
     } catch (err) {
       setErr(err);
     }
