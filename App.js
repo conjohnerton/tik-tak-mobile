@@ -6,6 +6,8 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { setNavigator } from "./src/navigationRef";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { Provider as PostProvider } from "./src/context/PostContext";
+import { Provider as LocationProvider } from "./src/context/LocationContext";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
@@ -29,8 +31,12 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <AuthProvider>
-      <App ref={(navigator) => setNavigator(navigator)} />
-    </AuthProvider>
+    <LocationProvider>
+      <PostProvider>
+        <AuthProvider>
+          <App ref={(navigator) => setNavigator(navigator)} />
+        </AuthProvider>
+      </PostProvider>
+    </LocationProvider>
   );
 };
