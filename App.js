@@ -19,10 +19,7 @@ const switchNavigator = createSwitchNavigator({
     Signin: SigninScreen
   }),
   mainFlow: createBottomTabNavigator({
-    PostFlow: createStackNavigator({
-      PostList: PostListScreen
-      // PostDetail: PostDetailScreen
-    }),
+    Posts: PostListScreen,
     // PostCreate: PostCreateScreen,
     AccountScreen: AccountScreen
   })
