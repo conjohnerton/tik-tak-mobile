@@ -37,8 +37,16 @@ const getPosts = (dispatch) => async ({ token, lat, lng }) => {
   }
 };
 
+const createPost = (dispatch) => async ({ authToken, content, location }) => {
+  try {
+    console.log(location, content, authToken);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   postReducer,
-  { getPosts },
+  { getPosts, createPost },
   { posts: [] }
 );
