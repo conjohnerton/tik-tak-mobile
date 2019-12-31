@@ -22,9 +22,10 @@ const CardScroller = ({ data }) => {
 
 const styles = StyleSheet.create({
   requests: {
-    marginHorizontal: 15,
-    paddingTop: -25,
-    marginTop: 0
+    paddingTop: 5,
+    paddingHorizontal: 15,
+    marginTop: 0,
+    zIndex: -1
 
     // marginTop: -25,
     // paddingTop: 55 + 20,

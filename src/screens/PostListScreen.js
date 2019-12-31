@@ -1,7 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-navigation";
 
-import { Text, CardScroller } from "../components";
+import * as theme from "../../theme";
+import { Text, CardScroller, MapCard } from "../components";
 
 import useLocation from "../hooks/useLocation";
 import { Context as LocationContext } from "../context/LocationContext";
@@ -112,7 +114,10 @@ const PostListScreen = () => {
   // ! Remember to use real api posts when switching back to prod
   return (
     <>
-      <Text h3>Post List!</Text>
+      {locationState.currentLocation ? (
+        <MapCard location={locationState.currentLocation} />
+      ) : null}
+
       <CardScroller data={mockPosts} />
     </>
   );
