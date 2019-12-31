@@ -10,13 +10,21 @@ const ContentPost = ({ post }) => {
     return (
       <Block row card shadow color="white" style={styles.post}>
         <Block flex={0.75} column middle>
-          <Text h3 style={{ paddingVertical: 3 }}>
+          <Text semibold style={{ paddingVertical: 3 }}>
             {post.content}
           </Text>
-          <Text caption semibold>
+          <Text caption light>
             {post.upvotes} • {post.author}
           </Text>
         </Block>
+        {post.image !== "No image url" ? (
+          <Block row>
+            <Image
+              style={{ marginLeft: 40, height: 150, width: 150 }}
+              source={{ uri: post.image }}
+            />
+          </Block>
+        ) : null}
       </Block>
     );
   };
@@ -28,35 +36,8 @@ const styles = StyleSheet.create({
   post: {
     padding: 20,
     marginBottom: 1,
-    marginVertical: 15
+    marginVertical: 12
   }
 });
 
 export default ContentPost;
-
-// !Image stuffs
-// {!post.image === "No image url" ? (
-// 	<Block
-// 		flex={0.25}
-// 		card
-// 		column
-// 		color="secondary"
-// 		style={styles.requestStatus}
-// 	>
-// 		<Block flex={0.25} middle center color={theme.colors.primary}>
-// 			<Text small white style={{ textTransform: "uppercase" }}>
-// 				{post.image}
-// 			</Text>
-// 			<Image
-// 				style={{ height: 30, width: 30 }}
-// 				source={{ uri: post.image }}
-// 			/>
-// 			<Text>{post.image}</Text>
-// 		</Block>
-// 		<Block flex={0.7} center middle>
-// 			<Text h2 white>
-// 				Oh
-// 			</Text>
-// 		</Block>
-// 	</Block>
-// ) : null}

@@ -71,7 +71,7 @@ export default ({
 const styles = StyleSheet.create({
   // default style
   text: {
-    // fontFamily: "Montserrat-Regular",
+    fontFamily: "Montserrat-Regular",
     fontSize: theme.sizes.font,
     color: theme.colors.black
   },

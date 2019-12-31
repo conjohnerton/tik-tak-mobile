@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-navigation";
 
 import { Text, CardScroller } from "../components";
 
@@ -50,7 +49,7 @@ const PostListScreen = () => {
       upvotes: 0,
       _id: "5e0a84acc47d960f017db8ace",
       content:
-        "this is a postfdsfjklfjdlkjlfjasflkjfldaskjflkfjsalfkjflkdsfjasklfdjfklasjfdlkfjaslkfdjasfklasdjflkdsfjsaklfjdfkladsjfkldsf. fdsakfljflakuafijlkfuaofjkfadshfufjdaklfhjfadf\n\n",
+        "This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments. The native side will then choose the best uri to display based on the measured size of the image container. A cache property can be added to control how networked request interacts with the local cache. (For more information see Cache Control for Images).",
       author: "test@gmail.com",
       image:
         "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
@@ -119,10 +118,6 @@ const PostListScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 0.7
-  }
-});
+const styles = StyleSheet.create({});
 
 export default PostListScreen;

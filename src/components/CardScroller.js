@@ -1,9 +1,10 @@
 import React from "react";
-import { FlatList, TouchableOpacity, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import Block from "./Block";
 import ContentPost from "./ContentPost";
 
+// Renders a vertical list of posts
 const CardScroller = ({ data }) => {
   return (
     <Block flex={0.85} column color="gray2" style={styles.requests}>
@@ -12,11 +13,7 @@ const CardScroller = ({ data }) => {
         data={data}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
-          return (
-            <TouchableOpacity activeOpacity={0.8} key={item._id}>
-              <ContentPost post={item} />
-            </TouchableOpacity>
-          );
+          return <ContentPost post={item} />;
         }}
       />
     </Block>
