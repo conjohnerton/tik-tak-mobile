@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import { FlatList, StyleSheet } from "react-native";
-import { Text } from "react-native-elements";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-navigation";
+
+import { Text, CardScroller } from "../components";
 
 import useLocation from "../hooks/useLocation";
 import { Context as LocationContext } from "../context/LocationContext";
@@ -27,9 +28,10 @@ const PostListScreen = () => {
     });
   };
 
+  // ! UNCOMMENT WHEN MOVING TO PROD DATA
   useEffect(() => {
     if (locationState.currentLocation) {
-      getAllNearbyPosts();
+      // getAllNearbyPosts();
     }
   }, [locationState.currentLocation]);
 
@@ -42,25 +44,84 @@ const PostListScreen = () => {
     );
   }
 
-  console.log("xxxx", postState.posts, "xxxx");
+  const mockPosts = [
+    {
+      comments: [],
+      upvotes: 0,
+      _id: "5e0a84acc47d960f017db8ace",
+      content:
+        "this is a postfdsfjklfjdlkjlfjasflkjfldaskjflkfjsalfkjflkdsfjasklfdjfklasjfdlkfjaslkfdjasfklasdjflkdsfjsaklfjdfkladsjfkldsf. fdsakfljflakuafijlkfuaofjkfadshfufjdaklfhjfadf\n\n",
+      author: "test@gmail.com",
+      image:
+        "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
+      createdAt: "2019-12-30T23:13:48.978Z",
+      __v: 0
+    },
+    {
+      comments: [],
+      upvotes: 0,
+      _id: "5e0a84acc47d9s60017db8ace",
+      content: "this is a post\n\n",
+      author: "test@gmail.com",
+      image: "No image url",
+      createdAt: "2019-12-30T23:13:48.978Z",
+      __v: 0
+    },
+    {
+      comments: [],
+      upvotes: 0,
+      _id: "5e0a84a3cc47d960017db8ace",
+      content: "this is a pos1233t\n\n",
+      author: "test@gmail.com",
+      image: "No image url",
+      createdAt: "2019-12-30T23:13:48.978Z",
+      __v: 0
+    },
+    {
+      comments: [],
+      upvotes: 0,
+      _id: "5e0a84ac6c47d960017db8ace",
+      content: "this is a post3\n\n",
+      author: "test@gmail.com",
+      image:
+        "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
+      createdAt: "2019-12-30T23:13:48.978Z",
+      __v: 0
+    },
+    {
+      comments: [],
+      upvotes: 0,
+      _id: "5e0a84acc8747d960017db8ace",
+      content: "this is a post2\n\n",
+      author: "test@gmail.com",
+      image: "No image url",
+      createdAt: "2019-12-30T23:13:48.978Z",
+      __v: 0
+    },
+    {
+      comments: [],
+      upvotes: 0,
+      _id: "5e0a84acc472342342d960017db8ace",
+      content: "this is a postfdasff\n\n",
+      author: "test@gmail.com",
+      image: "No image url",
+      createdAt: "2019-12-30T23:13:48.978Z",
+      __v: 0
+    }
+  ];
 
+  // ! Remember to use real api posts when switching back to prod
   return (
-    <SafeAreaView forceInset={{ top: "always" }}>
+    <>
       <Text h3>Post List!</Text>
-      <FlatList
-        data={postState.posts}
-        keyExtractor={(post) => post._id}
-        renderItem={({ item }) => {
-          return <Text h5>{item.content}</Text>;
-        }}
-      />
-    </SafeAreaView>
+      <CardScroller data={mockPosts} />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 0.7
   }
 });
 

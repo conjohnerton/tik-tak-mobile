@@ -2,6 +2,7 @@ import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import * as Font from "expo-font";
 
 import { setNavigator } from "./src/navigationRef";
 
@@ -30,6 +31,27 @@ const switchNavigator = createSwitchNavigator({
 const App = createAppContainer(switchNavigator);
 
 export default () => {
+  const [fontsLoaded, setFontsLoaded] = React.useState(false);
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
+      "Montserrat-Bold": require("./assets/fonts/Montserrat-Bold.ttf"),
+      "Montserrat-SemiBold": require("./assets/fonts/Montserrat-SemiBold.ttf"),
+      "Montserrat-Medium": require("./assets/fonts/Montserrat-Medium.ttf"),
+      "Montserrat-Light": require("./assets/fonts/Montserrat-Light.ttf")
+    });
+    setFontsLoaded(true);
+  };
+
+  React.useEffect(() => {
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <LocationProvider>
       <PostProvider>
