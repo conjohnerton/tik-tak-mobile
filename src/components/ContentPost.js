@@ -3,40 +3,37 @@ import { StyleSheet, Image } from "react-native";
 
 import Block from "./Block";
 import Text from "./Text";
-import * as theme from "../../theme";
 
 const ContentPost = ({ post }) => {
-  const renderRequest = (post) => {
+  const renderPost = (post) => {
     return (
-      <Block row card shadow color="white" style={styles.post}>
-        <Block flex={0.75} column middle>
-          <Text semibold style={{ paddingVertical: 3 }}>
-            {post.content}
-          </Text>
-          <Text caption light>
-            {post.upvotes} • {post.author}
-          </Text>
-        </Block>
+      <Block color="white" style={styles.post}>
+        <Text semibold style={{ paddingVertical: 8 }}>
+          {post.content}
+        </Text>
         {post.image !== "No image url" ? (
-          <Block row>
-            <Image
-              style={{ marginLeft: 40, height: 150, width: 150 }}
-              source={{ uri: post.image }}
-            />
-          </Block>
+          <Image style={styles.image} source={{ uri: post.image }} />
         ) : null}
+        <Text light>
+          {post.upvotes} • {post.author}
+        </Text>
       </Block>
     );
   };
 
-  return renderRequest(post);
+  return renderPost(post);
 };
 
 const styles = StyleSheet.create({
   post: {
     padding: 20,
     marginBottom: 1,
-    marginVertical: 12
+    marginVertical: 10
+  },
+  image: {
+    height: 150,
+    borderRadius: 10,
+    marginBottom: 20
   }
 });
 

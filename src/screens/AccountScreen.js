@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
-import { Button, Text } from "react-native-elements";
+import { StyleSheet } from "react-native";
+import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
 
+import { Text } from "../components";
 import { Context as AuthContext } from "../context/AuthContext";
 
 const AccountScreen = () => {
@@ -10,18 +11,21 @@ const AccountScreen = () => {
 
   return (
     <SafeAreaView inset={{ top: "always" }} style={styles.container}>
-      <Text h4>Account Screen</Text>
+      <Text style={{ marginBottom: 10 }} h1>
+        Account Details
+      </Text>
 
-      {/* <View style={styles.container}> */}
       <Button title="Sign out" onPress={signout} />
-      {/* </View> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30
+    flex: 0.3,
+    marginTop: 30,
+    marginHorizontal: 30,
+    justifyContent: "center"
   }
 });
 

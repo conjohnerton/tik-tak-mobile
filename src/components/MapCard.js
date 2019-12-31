@@ -3,11 +3,13 @@ import { StyleSheet } from "react-native";
 
 import Map from "./Map";
 import Block from "./Block";
+import Text from "./Text";
 
 const MapCard = ({ location }) => {
   return (
-    <Block flex={0.85} center style={styles.container}>
-      <Block color="gray2" style={styles.card}>
+    <Block center color="lightblue" style={styles.header}>
+      <Block center color="gray2" style={styles.card}>
+        <Text style={{ marginBottom: 3 }}>Posting Area</Text>
         <Map location={location} />
       </Block>
     </Block>
@@ -15,12 +17,10 @@ const MapCard = ({ location }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 35,
-    marginBottom: -1,
-    flex: 0.35,
-    justifyContent: "space-between",
-    alignContent: "stretch"
+  header: {
+    paddingTop: 34,
+    flex: 0.28,
+    zIndex: -1
   },
   card: {
     paddingHorizontal: 10,

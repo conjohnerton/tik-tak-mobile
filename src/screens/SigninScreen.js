@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationEvents } from "react-navigation";
 
+import { Block } from "../components";
 import AuthForm from "../components/AuthForm";
 import NavLink from "../components/NavLink";
 import { Context as AuthContext } from "../context/AuthContext";
@@ -13,12 +14,15 @@ const SigninScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <NavigationEvents onWillBlur={clearError} />
-      <AuthForm
-        headerText="Log into Tik Tak"
-        errorMessage={state.errorMessage}
-        onSubmit={signin}
-        submitButtonText="Log in"
-      />
+      <Block middle color="gray2" style={styles.card}>
+        <AuthForm
+          headerText="Log into Tik Tak"
+          errorMessage={state.errorMessage}
+          onSubmit={signin}
+          submitButtonText="Log in"
+        />
+      </Block>
+
       <NavLink
         navigateTo="Signup"
         linkText="Don't have an account yet? Sign up here."
@@ -35,6 +39,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.7,
     justifyContent: "center"
+  },
+  card: {
+    marginHorizontal: 10,
+    marginVertical: 50
   }
 });
 

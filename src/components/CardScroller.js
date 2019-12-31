@@ -5,10 +5,12 @@ import Block from "./Block";
 import ContentPost from "./ContentPost";
 
 // Renders a vertical list of posts
-const CardScroller = ({ data }) => {
+const CardScroller = ({ data, handleScroll, refresh, refreshing }) => {
   return (
-    <Block flex={0.85} column color="gray2" style={styles.requests}>
+    <Block color="gray2" style={styles.requests}>
       <FlatList
+        onScrollEndDrag={handleScroll}
+        onRefresh={refresh}
         showsVerticalScrollIndicator={false}
         data={data}
         keyExtractor={(item) => item._id}
@@ -26,11 +28,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 0,
     zIndex: -1
-
-    // marginTop: -25,
-    // paddingTop: 55 + 20,
-    // paddingHorizontal: 15,
-    // zIndex: -1
   }
 });
 

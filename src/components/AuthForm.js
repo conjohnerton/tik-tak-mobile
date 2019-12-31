@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
+import { Input, Button } from "react-native-elements";
 
-import { Text, Input, Button } from "react-native-elements";
+import Text from "./Text";
 import Spacer from "./Spacer";
 
 const AuthForm = ({
@@ -19,7 +20,7 @@ const AuthForm = ({
   return (
     <>
       <Spacer>
-        <Text h3>{headerText}</Text>
+        <Text h2>{headerText}</Text>
       </Spacer>
 
       <Input

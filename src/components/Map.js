@@ -27,7 +27,7 @@ const Map = ({ location }) => {
 const styles = StyleSheet.create({
   map: {
     flex: 0.92,
-    height: 100,
+    height: 75,
     width: 350
   }
 });

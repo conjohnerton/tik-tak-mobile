@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-navigation";
 
-import * as theme from "../../theme";
 import { Text, CardScroller, MapCard } from "../components";
 
 import useLocation from "../hooks/useLocation";
@@ -62,7 +60,7 @@ const PostListScreen = () => {
       comments: [],
       upvotes: 0,
       _id: "5e0a84acc47d9s60017db8ace",
-      content: "this is a post\n\n",
+      content: "this is a post yeadddhhhhhhhhhhhhhh\n\n",
       author: "test@gmail.com",
       image: "No image url",
       createdAt: "2019-12-30T23:13:48.978Z",
@@ -72,7 +70,8 @@ const PostListScreen = () => {
       comments: [],
       upvotes: 0,
       _id: "5e0a84a3cc47d960017db8ace",
-      content: "this is a pos1233t\n\n",
+      content:
+        "this is a pos1233te. I can't believe I'm going to the moon Jenko!\n\n",
       author: "test@gmail.com",
       image: "No image url",
       createdAt: "2019-12-30T23:13:48.978Z",
@@ -103,9 +102,11 @@ const PostListScreen = () => {
       comments: [],
       upvotes: 0,
       _id: "5e0a84acc472342342d960017db8ace",
-      content: "this is a postfdasff\n\n",
+      content:
+        "this is a postfdasff. I can't wait to eat candy cottin on the barsha barrow.\n\n",
       author: "test@gmail.com",
-      image: "No image url",
+      image:
+        "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
       createdAt: "2019-12-30T23:13:48.978Z",
       __v: 0
     }

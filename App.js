@@ -13,6 +13,7 @@ import LoadingScreen from "./src/screens/LoadingScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import PostListScreen from "./src/screens/PostListScreen";
+import PostCreateScreen from "./src/screens/PostCreateScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 
 const switchNavigator = createSwitchNavigator({
@@ -23,7 +24,7 @@ const switchNavigator = createSwitchNavigator({
   }),
   mainFlow: createBottomTabNavigator({
     Posts: PostListScreen,
-    // PostCreate: PostCreateScreen,
+    PostCreate: PostCreateScreen,
     AccountScreen: AccountScreen
   })
 });
