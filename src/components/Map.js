@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
   map: {
     flex: 0.92,
     height: 75,
-    width: 350
+    width: 350,
+    marginBottom: 5
   }
 });
 

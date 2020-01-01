@@ -27,10 +27,12 @@ const PostListScreen = () => {
     });
   };
 
+  // console.log(postState.posts);
+
   // ! UNCOMMENT WHEN MOVING TO PROD DATA
   useEffect(() => {
     if (locationState.currentLocation) {
-      // getAllNearbyPosts();
+      getAllNearbyPosts();
     }
   }, [locationState.currentLocation]);
 
@@ -43,75 +45,6 @@ const PostListScreen = () => {
     );
   }
 
-  const mockPosts = [
-    {
-      comments: [],
-      upvotes: 0,
-      _id: "5e0a84acc47d960f017db8ace",
-      content:
-        "This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments. The native side will then choose the best uri to display based on the measured size of the image container. A cache property can be added to control how networked request interacts with the local cache. (For more information see Cache Control for Images).",
-      author: "test@gmail.com",
-      image:
-        "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
-      createdAt: "2019-12-30T23:13:48.978Z",
-      __v: 0
-    },
-    {
-      comments: [],
-      upvotes: 0,
-      _id: "5e0a84acc47d9s60017db8ace",
-      content: "this is a post yeadddhhhhhhhhhhhhhh\n\n",
-      author: "test@gmail.com",
-      image: "No image url",
-      createdAt: "2019-12-30T23:13:48.978Z",
-      __v: 0
-    },
-    {
-      comments: [],
-      upvotes: 0,
-      _id: "5e0a84a3cc47d960017db8ace",
-      content:
-        "this is a pos1233te. I can't believe I'm going to the moon Jenko!\n\n",
-      author: "test@gmail.com",
-      image: "No image url",
-      createdAt: "2019-12-30T23:13:48.978Z",
-      __v: 0
-    },
-    {
-      comments: [],
-      upvotes: 0,
-      _id: "5e0a84ac6c47d960017db8ace",
-      content: "this is a post3\n\n",
-      author: "test@gmail.com",
-      image:
-        "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
-      createdAt: "2019-12-30T23:13:48.978Z",
-      __v: 0
-    },
-    {
-      comments: [],
-      upvotes: 0,
-      _id: "5e0a84acc8747d960017db8ace",
-      content: "this is a post2\n\n",
-      author: "test@gmail.com",
-      image: "No image url",
-      createdAt: "2019-12-30T23:13:48.978Z",
-      __v: 0
-    },
-    {
-      comments: [],
-      upvotes: 0,
-      _id: "5e0a84acc472342342d960017db8ace",
-      content:
-        "this is a postfdasff. I can't wait to eat candy cottin on the barsha barrow.\n\n",
-      author: "test@gmail.com",
-      image:
-        "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
-      createdAt: "2019-12-30T23:13:48.978Z",
-      __v: 0
-    }
-  ];
-
   // ! Remember to use real api posts when switching back to prod
   return (
     <>
@@ -119,7 +52,7 @@ const PostListScreen = () => {
         <MapCard location={locationState.currentLocation} />
       ) : null}
 
-      <CardScroller data={mockPosts} />
+      <CardScroller data={postState.posts} />
     </>
   );
 };
@@ -127,3 +60,72 @@ const PostListScreen = () => {
 const styles = StyleSheet.create({});
 
 export default PostListScreen;
+
+const mockPosts = [
+  {
+    comments: [],
+    upvotes: 0,
+    _id: "5e0a84acc47d960f017db8ace",
+    content:
+      "This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments. The native side will then choose the best uri to display based on the measured size of the image container. A cache property can be added to control how networked request interacts with the local cache. (For more information see Cache Control for Images).",
+    author: "test@gmail.com",
+    image:
+      "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
+    createdAt: "2019-12-30T23:13:48.978Z",
+    __v: 0
+  },
+  {
+    comments: [],
+    upvotes: 0,
+    _id: "5e0a84acc47d9s60017db8ace",
+    content: "this is a post yeadddhhhhhhhhhhhhhh\n\n",
+    author: "test@gmail.com",
+    image: "No image url",
+    createdAt: "2019-12-30T23:13:48.978Z",
+    __v: 0
+  },
+  {
+    comments: [],
+    upvotes: 0,
+    _id: "5e0a84a3cc47d960017db8ace",
+    content:
+      "this is a pos1233te. I can't believe I'm going to the moon Jenko!\n\n",
+    author: "test@gmail.com",
+    image: "No image url",
+    createdAt: "2019-12-30T23:13:48.978Z",
+    __v: 0
+  },
+  {
+    comments: [],
+    upvotes: 0,
+    _id: "5e0a84ac6c47d960017db8ace",
+    content: "this is a post3\n\n",
+    author: "test@gmail.com",
+    image:
+      "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
+    createdAt: "2019-12-30T23:13:48.978Z",
+    __v: 0
+  },
+  {
+    comments: [],
+    upvotes: 0,
+    _id: "5e0a84acc8747d960017db8ace",
+    content: "this is a post2\n\n",
+    author: "test@gmail.com",
+    image: "No image url",
+    createdAt: "2019-12-30T23:13:48.978Z",
+    __v: 0
+  },
+  {
+    comments: [],
+    upvotes: 0,
+    _id: "5e0a84acc472342342d960017db8ace",
+    content:
+      "this is a postfdasff. I can't wait to eat candy cottin on the barsha barrow.\n\n",
+    author: "test@gmail.com",
+    image:
+      "https://tik-tak-eastern-images.s3.amazonaws.com/images/Screenshot%20from%202019-12-17%2020-39-18.png-1577749492702.png",
+    createdAt: "2019-12-30T23:13:48.978Z",
+    __v: 0
+  }
+];

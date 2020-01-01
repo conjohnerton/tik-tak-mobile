@@ -5,11 +5,18 @@ import Block from "./Block";
 import Text from "./Text";
 
 const ContentPost = ({ post }) => {
+  const renderText = (text) => {
+    if (text.length === 0 || text === "undefined") {
+      return "";
+    }
+
+    return text;
+  };
   const renderPost = (post) => {
     return (
       <Block color="white" style={styles.post}>
         <Text semibold style={{ paddingVertical: 8 }}>
-          {post.content}
+          {renderText(post.content)}
         </Text>
         {post.image !== "No image url" ? (
           <Image style={styles.image} source={{ uri: post.image }} />

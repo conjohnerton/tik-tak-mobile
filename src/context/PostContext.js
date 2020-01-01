@@ -1,10 +1,17 @@
 import createDataContext from "./createDataContext";
 import takApi from "../api/yakApi";
+import { navigate } from "../navigationRef";
 
 const postReducer = (state, action) => {
   switch (action.type) {
     case "fetch_posts":
-      return { posts: action.payload };
+      return { posts: action.payload, error: "" };
+
+    case "create_post":
+      return { ...state, posts: state.posts.concat(action.payload), error: "" };
+
+    case "add_error":
+      return { ...state, error: action.payload };
 
     default:
       return state;
@@ -37,16 +44,60 @@ const getPosts = (dispatch) => async ({ token, lat, lng }) => {
   }
 };
 
-const createPost = (dispatch) => async ({ authToken, content, location }) => {
+const createPost = (dispatch) => async ({ authToken, input, location }) => {
   try {
-    console.log(location, content, authToken);
+    // Rejects empty inputs
+    if (!input.content && !input.image) {
+      dispatch({
+        type: "add_error",
+        payload: "Please input some text or an image."
+      });
+      return;
+    }
+
+    // Create form data object and add fields
+    const bodyFormData = new FormData();
+
+    // Add text only if defined
+    if (input.content) {
+      bodyFormData.append("content", input.content);
+    }
+
+    bodyFormData.append("lat", location.latitude);
+    bodyFormData.append("lng", location.longitude);
+
+    if (input.image) {
+      bodyFormData.append("image", {
+        uri: input.image.uri,
+        filename: input.image.filename
+      });
+      console.log("here");
+    }
+
+    console.log(bodyFormData);
+
+    // Get response data from request
+    const { data } = await takApi("api/yaks", {
+      method: "post",
+      data: bodyFormData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "x-auth-token": authToken
+      }
+    });
+
+    const { newYak } = data;
+
+    dispatch({ type: "create_post", payload: newYak });
+
+    navigate("Posts");
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
 export const { Provider, Context } = createDataContext(
   postReducer,
   { getPosts, createPost },
-  { posts: [] }
+  { posts: [], error: "" }
 );
