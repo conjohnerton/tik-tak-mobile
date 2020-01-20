@@ -1,3 +1,4 @@
+import TouchableUpvote from "./TouchableUpvote";
 import CardScroller from "./CardScroller";
 import ContentPost from "./ContentPost";
 import AuthForm from "./AuthForm";
@@ -16,6 +17,7 @@ export {
   AuthForm,
   ContentPost,
   CardScroller,
+  TouchableUpvote,
   Map,
   MapCard
 };

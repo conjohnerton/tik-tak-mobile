@@ -13,6 +13,20 @@ const postReducer = (state, action) => {
     case "add_error":
       return { ...state, error: action.payload };
 
+    case "add_comment":
+      return { ...state };
+
+    case "upvote":
+      const newPosts = state.posts.map((post) => {
+        if (post._id === action.payload._id) {
+          return { ...post, upvotes: post.upvotes + 1 };
+        }
+
+        return post;
+      });
+
+      return { ...state, posts: newPosts };
+
     default:
       return state;
   }
@@ -44,6 +58,7 @@ const getPosts = (dispatch) => async ({ token, lat, lng }) => {
   }
 };
 
+// ! This aint working yet for images
 const createPost = (dispatch) => async ({ authToken, input, location }) => {
   try {
     // Rejects empty inputs
@@ -55,31 +70,17 @@ const createPost = (dispatch) => async ({ authToken, input, location }) => {
       return;
     }
 
-    // Create form data object and add fields
-    const bodyFormData = new FormData();
+    const formData = createFormData(input.image, {
+      content: input.content,
+      location: { lat: location.latitude, lng: location.longitude }
+    });
 
-    // Add text only if defined
-    if (input.content) {
-      bodyFormData.append("content", input.content);
-    }
-
-    bodyFormData.append("lat", location.latitude);
-    bodyFormData.append("lng", location.longitude);
-
-    if (input.image) {
-      bodyFormData.append("image", {
-        uri: input.image.uri,
-        filename: input.image.filename
-      });
-      console.log("here");
-    }
-
-    console.log(bodyFormData);
+    // console.log("Woah buddy we area about to make a call.");
 
     // Get response data from request
     const { data } = await takApi("api/yaks", {
       method: "post",
-      data: bodyFormData,
+      data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
         "x-auth-token": authToken
@@ -92,12 +93,76 @@ const createPost = (dispatch) => async ({ authToken, input, location }) => {
 
     navigate("Posts");
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
+};
+
+const upvote = (dispatch) => async ({ authToken, post }) => {
+  const config = {
+    headers: {
+      "x-auth-token": authToken
+    }
+  };
+
+  try {
+    const response = await takApi.post(`api/yaks/${post._id}/upvote`, config);
+
+    if (!response.data.success) {
+      console.log("fail!!!!!!!!");
+      dispatch({
+        type: "add_error",
+        payload: "Could not upvote that post at this time."
+      });
+      return;
+    }
+
+    dispatch({ type: "upvote", payload: post });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const createComment = (dispatch) => async ({
+  authToken,
+  comment,
+  postToModify
+}) => {};
+
+// Helper function for createPost
+const createFormData = (image, body) => {
+  // Create form data object and add fields
+  const bodyFormData = new FormData();
+
+  // Add text if defined
+  if (body.content) {
+    bodyFormData.append("content", body.content);
+  } else {
+    bodyFormData.append("content", "ok");
+  }
+
+  // ^^^^^ It enters the else when no content is entered
+  // maybe the back end is rejecting it because it has an empty content field??
+  // internet is annoying at orion :(
+
+  // Add image if defined
+  if (image) {
+    bodyFormData.append("image", {
+      uri: image.base64,
+      type: image.type,
+      filename: image.filename
+    });
+  }
+  // bodyFormData.append("image", input.image);
+
+  bodyFormData.append("lat", body.location.lat);
+  bodyFormData.append("lng", body.location.lng);
+
+  console.log(bodyFormData);
+  return bodyFormData;
 };
 
 export const { Provider, Context } = createDataContext(
   postReducer,
-  { getPosts, createPost },
+  { getPosts, createPost, upvote, createComment },
   { posts: [], error: "" }
 );

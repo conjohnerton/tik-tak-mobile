@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet } from "react-native";
 
 import { Text, CardScroller, MapCard } from "../components";
@@ -26,8 +26,6 @@ const PostListScreen = () => {
       lng: longitude
     });
   };
-
-  // console.log(postState.posts);
 
   // ! UNCOMMENT WHEN MOVING TO PROD DATA
   useEffect(() => {
