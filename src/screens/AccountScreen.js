@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
+import { Feather } from "@expo/vector-icons";
 
 import { Text } from "../components";
 import { Context as AuthContext } from "../context/AuthContext";
@@ -28,5 +29,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+AccountScreen.navigationOptions = {
+  title: "Account",
+  tabBarIcon: <Feather color="teal" name="log-out" size={23} />
+};
 
 export default AccountScreen;

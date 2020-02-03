@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { StyleSheet } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { Text, CardScroller, MapCard } from "../components";
 
@@ -50,18 +51,25 @@ const PostListScreen = () => {
         <MapCard location={locationState.currentLocation} />
       ) : null}
 
-      <CardScroller data={postState.posts} />
+      <CardScroller data={postState.posts} handleRefresh={getAllNearbyPosts} />
     </>
   );
 };
 
 const styles = StyleSheet.create({});
 
+PostListScreen.navigationOptions = {
+  title: "Posts",
+  tabBarIcon: (
+    <MaterialCommunityIcons color="teal" name="map-marker-radius" size={23} />
+  )
+};
+
 export default PostListScreen;
 
 const mockPosts = [
   {
-    comments: [],
+    comments: [{ _id: "1", author: "test@gmail.com", content: "hi" }],
     upvotes: 0,
     _id: "5e0a84acc47d960f017db8ace",
     content:

@@ -10,6 +10,12 @@ const postReducer = (state, action) => {
     case "create_post":
       return { ...state, posts: state.posts.concat(action.payload), error: "" };
 
+    case "delete_post":
+      return {
+        ...state,
+        posts: state.posts.filter((post) => action.payload._id !== post._id)
+      };
+
     case "add_error":
       return { ...state, error: action.payload };
 
@@ -97,6 +103,31 @@ const createPost = (dispatch) => async ({ authToken, input, location }) => {
   }
 };
 
+const deletePost = (dispatch) => async ({ authToken, post }) => {
+  const config = {
+    headers: {
+      "x-auth-token": authToken
+    }
+  };
+
+  try {
+    const response = await takApi.delete(`api/yaks/${post._id}`, config);
+
+    if (!response.data.success) {
+      alert("fail!!!!!!!!");
+      dispatch({
+        type: "add_error",
+        payload: "Could not upvote that post at this time."
+      });
+      return;
+    }
+
+    dispatch({ type: "delete_post", payload: post });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const upvote = (dispatch) => async ({ authToken, post }) => {
   const config = {
     headers: {
@@ -107,8 +138,8 @@ const upvote = (dispatch) => async ({ authToken, post }) => {
   try {
     const response = await takApi.post(`api/yaks/${post._id}/upvote`, config);
 
+    // Checks for response failure
     if (!response.data.success) {
-      console.log("fail!!!!!!!!");
       dispatch({
         type: "add_error",
         payload: "Could not upvote that post at this time."
@@ -163,6 +194,6 @@ const createFormData = (image, body) => {
 
 export const { Provider, Context } = createDataContext(
   postReducer,
-  { getPosts, createPost, upvote, createComment },
+  { getPosts, createPost, deletePost, upvote, createComment },
   { posts: [], error: "" }
 );

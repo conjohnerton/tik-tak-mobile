@@ -1,22 +1,25 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, RefreshControl } from "react-native";
 
 import Block from "./Block";
 import ContentPost from "./ContentPost";
 
 // Renders a vertical list of posts
-const CardScroller = ({ data, handleScroll, refresh, refreshing }) => {
+const CardScroller = ({ data, handleScroll, handleRefresh }) => {
+  const [refreshing, setRefreshing] = React.useState(false);
+
   return (
     <Block color="gray2" style={styles.requests}>
       <FlatList
         onScrollEndDrag={handleScroll}
-        onRefresh={refresh}
         showsVerticalScrollIndicator={false}
         data={data}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return <ContentPost post={item} />;
         }}
+        refreshing={refreshing}
+        onRefresh={() => handleRefresh()}
       />
     </Block>
   );

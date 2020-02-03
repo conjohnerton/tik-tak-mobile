@@ -132,4 +132,9 @@ const styles = StyleSheet.create({
   }
 });
 
+PostCreateScreen.navigationOptions = {
+  title: "Create Post",
+  tabBarIcon: <Ionicons color="teal" name="md-add" size={23} />
+};
+
 export default PostCreateScreen;
