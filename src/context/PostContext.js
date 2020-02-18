@@ -19,6 +19,9 @@ const postReducer = (state, action) => {
     case "add_error":
       return { ...state, error: action.payload };
 
+    case "clear_error":
+      return { ...state, error: "" };
+
     case "add_comment":
       return { ...state };
 
@@ -114,17 +117,14 @@ const deletePost = (dispatch) => async ({ authToken, post }) => {
     const response = await takApi.delete(`api/yaks/${post._id}`, config);
 
     if (!response.data.success) {
-      alert("fail!!!!!!!!");
-      dispatch({
-        type: "add_error",
-        payload: "Could not upvote that post at this time."
-      });
-      return;
+      throw "delete post error";
     }
 
     dispatch({ type: "delete_post", payload: post });
   } catch (e) {
     console.log(e);
+    dispatch({ type: "add_error", payload: "Could not delete that post." });
+    setTimeout(() => dispatch({ type: "clear_error" }), 1000);
   }
 };
 

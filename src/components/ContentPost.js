@@ -1,22 +1,22 @@
 import React, { useContext, useState } from "react";
-import {
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ToastAndroid
-} from "react-native";
+import { StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { Context as PostContext } from "../context/PostContext";
 import { Context as AuthContext } from "../context/AuthContext";
 
+import cleanName from "../functions/cleanUsername";
+
 import Block from "./Block";
 import Text from "./Text";
 import TouchableUpvote from "./TouchableUpvote";
+import TouchableDelete from "./TouchableDelete";
+import CommentScroller from "./CommentScroller";
 
 const ContentPost = ({ post }) => {
+  const [openComments, setOpenComments] = useState(false);
   const [didUpvote, setDidUpvote] = useState(false);
-  const { state: authState } = useContext(AuthContext);
   const { upvote, deletePost } = useContext(PostContext);
+  const { state: authState } = useContext(AuthContext);
 
   const renderText = (text) => {
     if (text.length === 0 || text === "undefined") {
@@ -25,22 +25,11 @@ const ContentPost = ({ post }) => {
 
     return text;
   };
+
   const renderPost = (post) => {
     return (
-      <TouchableOpacity
-        onLongPress={() => deletePost({ authToken: authState.token, post })}
-        onPress={() => {
-          // ! TODO: open comments on tap and tell about hold to delete
-          ToastAndroid.showWithGravityAndOffset(
-            "Hold to remove this post!",
-            ToastAndroid.SHORT,
-            ToastAndroid.BOTTOM,
-            0,
-            200
-          );
-        }}
-      >
-        <Block row color="white" style={styles.post}>
+      <Block color="white" style={styles.post}>
+        <Block column>
           <Block>
             <Text semibold style={{ paddingVertical: 8 }}>
               {renderText(post.content)}
@@ -50,18 +39,54 @@ const ContentPost = ({ post }) => {
               <Image style={styles.image} source={{ uri: post.image }} />
             ) : null}
 
-            <Text light>
-              {post.upvotes} • {post.author}
-            </Text>
+            <Block style={styles.cardFooter} row>
+              <Block>
+                <Text light>
+                  {post.upvotes} • {cleanName(post.author)}
+                </Text>
+              </Block>
+            </Block>
           </Block>
 
-          <TouchableUpvote
-            setDidUpvote={setDidUpvote}
-            didUpvote={didUpvote}
-            handleUpvote={() => upvote({ authToken: authState.token, post })}
-          />
+          <Block>
+            <Block style={styles.icons}>
+              <Block style={styles.upvote}>
+                <TouchableUpvote
+                  setDidUpvote={setDidUpvote}
+                  didUpvote={didUpvote}
+                  handleUpvote={() =>
+                    upvote({ authToken: authState.token, post })
+                  }
+                />
+              </Block>
+              {/* Renders delete icon if user is author */}
+              {authState.email === post.author ? (
+                <Block style={styles.delete}>
+                  <TouchableDelete
+                    deletePost={() =>
+                      deletePost({ authToken: authState.token, post })
+                    }
+                  />
+                </Block>
+              ) : null}
+            </Block>
+          </Block>
+          <Block>
+            <TouchableOpacity
+              onPress={() => {
+                setOpenComments(!openComments);
+              }}
+            >
+              <Block right>
+                <Text primary>Tap to open comments</Text>
+              </Block>
+            </TouchableOpacity>
+          </Block>
         </Block>
-      </TouchableOpacity>
+        <Block>
+          {openComments ? <CommentScroller data={post.comments} /> : null}
+        </Block>
+      </Block>
     );
   };
 
@@ -72,15 +97,18 @@ const styles = StyleSheet.create({
   post: {
     padding: 20,
     marginBottom: 1,
-    marginVertical: 10
+    marginVertical: 10,
+    borderRadius: 15
   },
   image: {
     height: 150,
     borderRadius: 10,
     marginBottom: 20
   },
-  vote: {
-    alignItems: "flex-start"
+  delete: {
+    paddingTop: 5,
+    paddingRight: 2,
+    marginBottom: -17
   }
 });
 

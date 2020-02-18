@@ -8,6 +8,9 @@ const authReducer = (state, action) => {
     case "authenticate_user":
       return { ...state, token: action.payload };
 
+    case "set_email":
+      return { ...state, email: action.payload };
+
     case "signout":
       return { token: null, errorMessage: "" };
 
@@ -30,7 +33,9 @@ const signup = (dispatch) => async ({ email, password }) => {
 
     // Saves to state
     await AsyncStorage.setItem("token", response.data.token);
+    await AsyncStorage.setItem("email", email);
     dispatch({ type: "authenticate_user", payload: response.data.token });
+    dispatch({ type: "set_email", payload: email });
 
     navigate("mainFlow");
   } catch (error) {
@@ -49,7 +54,9 @@ const signin = (dispatch) => async ({ email, password }) => {
 
     // Saves to state
     await AsyncStorage.setItem("token", response.data.token);
+    await AsyncStorage.setItem("email", email);
     dispatch({ type: "authenticate_user", payload: response.data.token });
+    dispatch({ type: "set_email", payload: email });
 
     navigate("mainFlow");
   } catch (error) {
@@ -63,6 +70,7 @@ const signin = (dispatch) => async ({ email, password }) => {
 const signout = (dispatch) => async () => {
   try {
     await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("email");
     dispatch({ type: "signout" });
 
     navigate("Signin");
@@ -77,6 +85,7 @@ const signout = (dispatch) => async () => {
 // Signs user in if token is in local storage
 const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
+  const email = await AsyncStorage.getItem("email");
 
   if (!token) {
     navigate("Signup");
@@ -84,6 +93,8 @@ const tryLocalSignin = (dispatch) => async () => {
   }
 
   dispatch({ type: "authenticate_user", payload: token });
+  dispatch({ type: "set_email", payload: email });
+
   navigate("Posts");
 };
 
@@ -94,5 +105,5 @@ const clearError = (dispatch) => () => {
 export const { Context, Provider } = createDataContext(
   authReducer,
   { signup, signin, signout, clearError, tryLocalSignin },
-  { token: null, errorMessage: "" }
+  { token: null, errorMessage: "", email: null }
 );

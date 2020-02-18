@@ -51,6 +51,12 @@ const PostListScreen = () => {
         <MapCard location={locationState.currentLocation} />
       ) : null}
 
+      {postState.error ? (
+        <Text center accent>
+          {postState.error}
+        </Text>
+      ) : null}
+
       <CardScroller data={postState.posts} handleRefresh={getAllNearbyPosts} />
     </>
   );

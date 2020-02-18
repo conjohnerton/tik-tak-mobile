@@ -38,18 +38,18 @@ const TouchableUpvote = ({ setDidUpvote, didUpvote, handleUpvote }) => {
 };
 
 const styles = StyleSheet.create({
-  post: {
-    padding: 20,
-    marginBottom: 1,
-    marginVertical: 10
-  },
-  image: {
-    height: 150,
-    borderRadius: 10,
-    marginBottom: 20
-  },
+  // post: {
+  //   padding: 20,
+  //   marginBottom: 1,
+  //   marginVertical: 10
+  // },
+  // image: {
+  //   height: 150,
+  //   borderRadius: 10,
+  //   marginBottom: 20
+  // },
   vote: {
-    alignItems: "flex-start"
+    marginTop: -50
   }
 });
 

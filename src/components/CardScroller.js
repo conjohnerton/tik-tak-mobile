@@ -8,6 +8,12 @@ import ContentPost from "./ContentPost";
 const CardScroller = ({ data, handleScroll, handleRefresh }) => {
   const [refreshing, setRefreshing] = React.useState(false);
 
+  const doRefresh = async () => {
+    setRefreshing(true);
+    await handleRefresh();
+    setRefreshing(false);
+  };
+
   return (
     <Block color="gray2" style={styles.requests}>
       <FlatList
@@ -19,7 +25,7 @@ const CardScroller = ({ data, handleScroll, handleRefresh }) => {
           return <ContentPost post={item} />;
         }}
         refreshing={refreshing}
-        onRefresh={() => handleRefresh()}
+        onRefresh={() => doRefresh()}
       />
     </Block>
   );
